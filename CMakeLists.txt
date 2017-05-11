@@ -1,4 +1,4 @@
-project(KDL_Parser)
+project(CogIMon_KDL_Parser)
 cmake_minimum_required(VERSION 2.8)
 
 add_definitions(-fPIC)
@@ -48,3 +48,21 @@ IF(BUILD_TEST)
 	add_executable(test ${PROJECT_SOURCE_DIR}/test/check_kdl_parser.cpp)
 	target_link_libraries(test ${PROJECT_NAME})
 ENDIF()
+
+# Installation
+
+configure_file("${CMAKE_PROJECT_NAME}-config.cmake.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake"
+               @ONLY)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake"
+        DESTINATION "share/${CMAKE_PROJECT_NAME}")
+
+
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION bin
+        LIBRARY DESTINATION lib
+        ARCHIVE DESTINATION lib)
+
+install(DIRECTORY include/
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/include/${CMAKE_PROJECT_NAME}${INSTALL_SUFFIX}")
