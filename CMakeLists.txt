@@ -1,4 +1,4 @@
-project(CogIMon_KDL_Parser)
+project(cogimon-kdl-parser)
 cmake_minimum_required(VERSION 2.8)
 
 add_definitions(-fPIC)
@@ -34,7 +34,7 @@ ENDIF()
 
 find_library(TinyXML NAMES tinyxml)
 
-add_library(${PROJECT_NAME} STATIC ${KDL_Parser_SOURCES})
+add_library(${PROJECT_NAME} SHARED ${KDL_Parser_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${orocos_kdl_LIBRARIES} ${TINYXML_LIBRARIES} ${TinyXML} ${Boost_LIBRARIES} ${urdfdom_LIBRARIES})
 
 set(${PROJECT_NAME}_INCLUDE_DIRS 	${PROJECT_SOURCE_DIR}/include
@@ -57,7 +57,6 @@ configure_file("${CMAKE_PROJECT_NAME}-config.cmake.in"
 
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}-config.cmake"
         DESTINATION "share/${CMAKE_PROJECT_NAME}")
-
 
 install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION bin
